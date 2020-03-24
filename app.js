@@ -11,6 +11,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Variables
 app.use(express.static('public'));
 
+
+
 app.set('port', 8081);
 app.set('db','mongodb://admin:sdi@tiendamusica-shard-00-00-uyeim.mongodb.net:27017,tiendamusica-shard-00-01-uyeim.mongodb.net:27017,tiendamusica-shard-00-02-uyeim.mongodb.net:27017/test?ssl=true&replicaSet=tiendamusica-shard-0&authSource=admin&retryWrites=true&w=majority');
 
