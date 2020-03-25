@@ -83,7 +83,8 @@ module.exports = function(app, swig,  gestorBD) {
             } else {
                 let respuesta = swig.renderFile('views/btienda.html',
                     {
-                        canciones : canciones
+                        canciones : canciones,
+
                     });
                 res.send(respuesta);
             }
@@ -96,11 +97,19 @@ module.exports = function(app, swig,  gestorBD) {
             if ( canciones == null ){
                 res.send(respuesta);
             } else {
-                let respuesta = swig.renderFile('views/bcancion.html',
-                    {
-                        cancion : canciones[0]
-                    });
-                res.send(respuesta);
+                let criterio_com = {"cancion_id": gestorBD.mongo.ObjectID(req.params.id)};
+                gestorBD.obtenerComentarios(criterio_com, function (comentarios) {
+                    if(comentarios == null){
+                        res.send(respuesta);
+                    } else {
+                        let respuesta = swig.renderFile('views/bcancion.html',
+                            {
+                                cancion: canciones[0],
+                                comentarios: comentarios
+                            });
+                        res.send(respuesta);
+                    }
+                });
             }
         });
     });
