@@ -130,3 +130,6 @@ https.createServer({
     console.log("Servidor activo");
 });
 
+app.listen(80, function(){
+    console.log("Servidor activo por el 80");
+})
