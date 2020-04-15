@@ -2,6 +2,9 @@
 let express = require('express');
 let app = express();
 
+var jwt = require('jsonwebtoken');
+app.set('jwt',jwt);
+
 let rest = require('request');
 app.set('rest',rest);
 
@@ -13,9 +16,6 @@ app.use(function(req, res, next) {
     // Debemos especificar todas las headers que se aceptan. Content-Type , token
     next();
 });
-
-var jwt = require('jsonwebtoken');
-app.set('jwt',jwt);
 
 let fs = require('fs');
 let https = require('https');
@@ -166,9 +166,9 @@ app.get('/', function (req, res) {
 
 app.use(function(err, req, res, next){
     console.log("Error producido: "+err);
-    if(!res,headersSent){
+    if(!res.headersSent){
         res.status(400);
-        res.send("Recurso no disponible");
+        res.redirect('/error/err');
     }
 });
 
